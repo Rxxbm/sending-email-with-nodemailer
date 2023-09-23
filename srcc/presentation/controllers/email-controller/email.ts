@@ -1,5 +1,6 @@
 import { MissingParamException } from "../../exceptions/missing-param-exception";
 import { ServerErrorException } from "../../exceptions/server-error-exception";
+import { badRequest, serverError } from "../../helpers";
 import { Controller } from "../../protocols/controller";
 import { HttpRequest, HttpResponse } from "../../protocols/http";
 
@@ -9,10 +10,7 @@ export class EmailController implements Controller {
             const requireFields = ['email', 'telephone', 'name', 'company_name', 'message'];
             for (const field of requireFields) {
                 if (!httpRequest.body[field]) {
-                    return {
-                        body: new MissingParamException(field),
-                        statusCode: 400
-                    };
+                    return badRequest(new MissingParamException(field));
                 }
             }
             return {
@@ -20,10 +18,7 @@ export class EmailController implements Controller {
                 statusCode: 200
             };
         }catch{
-            return {
-                body: new ServerErrorException(),
-                statusCode: 500
-            }
+            return serverError();
         };
      }
 }
