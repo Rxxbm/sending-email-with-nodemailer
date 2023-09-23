@@ -4,7 +4,7 @@ import { HttpRequest, HttpResponse } from "../../protocols/http";
 export class EmailController implements Controller {
     async handle(httpRequest: HttpRequest): Promise<HttpResponse>{
         try{
-            const requireFields = ['email'];
+            const requireFields = ['email', 'telephone', 'name', 'company_name', 'message'];
             for (const field of requireFields) {
                 if (!httpRequest.body[field]) {
                     return {
