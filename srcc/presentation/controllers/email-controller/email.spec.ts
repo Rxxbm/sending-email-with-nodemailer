@@ -1,11 +1,26 @@
+import { AddEmail, EmailDataModel } from '../../../domain/usecases/add-email-data';
 import { MissingParamException } from '../../exceptions/missing-param-exception';
 import { EmailController } from './email';
 
 
+class AddEmailStub implements AddEmail {
+    async add(data: EmailDataModel): Promise<EmailDataModel> {
+        return {
+            name: 'any_name',
+            company_name: 'any_company',
+            telephone: 'any_telephone',
+            email: 'any_email',
+            message: 'any_message'
+        };
+    }
+}
+
 const makeSUT = () => {
-    const sut = new EmailController();
+    const addEmailStub = new AddEmailStub();
+    const sut = new EmailController(addEmailStub);
     return {
-        sut
+        sut,
+        addEmailStub
     };
 }
 
@@ -79,5 +94,26 @@ describe('Email Controller', () => {
         const httpResponse = await sut.handle(httpRequest);
         expect(httpResponse.statusCode).toBe(400);
         expect(httpResponse.body).toEqual(new MissingParamException('message'));
+    });
+    test('Should call add email with correct values', async () => {
+        const { sut, addEmailStub } = makeSUT();
+        const addSpy = jest.spyOn(addEmailStub, 'add');
+        const httpRequest = {
+            body: {
+                name: 'any_name',
+                company_name: 'any_company',
+                telephone: 'any_telephone',
+                email: 'any_email',
+                message: 'any_message'
+            }
+        };
+        await sut.handle(httpRequest);
+        expect(addSpy).toHaveBeenCalledWith({
+            name: 'any_name',
+            company_name: 'any_company',
+            telephone: 'any_telephone',
+            email: 'any_email',
+            message: 'any_message'
+        });
     });
 });
