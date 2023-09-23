@@ -1,3 +1,4 @@
+import { MissingParamException } from '../../exceptions/missing-param-exception';
 import { EmailController } from './email';
 
 
@@ -21,7 +22,7 @@ describe('Email Controller', () => {
         };
         const httpResponse = await sut.handle(httpRequest);
         expect(httpResponse.statusCode).toBe(400);
-        expect(httpResponse.body).toEqual(new Error('missing params: email'));
+        expect(httpResponse.body).toEqual(new MissingParamException('email'));
     });
     test('Should return 400 if no name is provided', async () => {
         const { sut } = makeSUT();
@@ -35,7 +36,7 @@ describe('Email Controller', () => {
         };
         const httpResponse = await sut.handle(httpRequest);
         expect(httpResponse.statusCode).toBe(400);
-        expect(httpResponse.body).toEqual(new Error('missing params: name'));
+        expect(httpResponse.body).toEqual(new MissingParamException('name'));
     });
     test('Should return 400 if no telephone is provided', async () => {
         const { sut } = makeSUT();
@@ -49,7 +50,7 @@ describe('Email Controller', () => {
         };
         const httpResponse = await sut.handle(httpRequest);
         expect(httpResponse.statusCode).toBe(400);
-        expect(httpResponse.body).toEqual(new Error('missing params: telephone'));
+        expect(httpResponse.body).toEqual(new MissingParamException('telephone'));
     });
     test('Should return 400 if no company_name is provided', async () => {
         const { sut } = makeSUT();
@@ -63,7 +64,7 @@ describe('Email Controller', () => {
         };
         const httpResponse = await sut.handle(httpRequest);
         expect(httpResponse.statusCode).toBe(400);
-        expect(httpResponse.body).toEqual(new Error('missing params: company_name'));
+        expect(httpResponse.body).toEqual(new MissingParamException('company_name'));
     });
     test('Should return 400 if no message is provider', async () => {
         const { sut } = makeSUT();
@@ -77,6 +78,6 @@ describe('Email Controller', () => {
         };
         const httpResponse = await sut.handle(httpRequest);
         expect(httpResponse.statusCode).toBe(400);
-        expect(httpResponse.body).toEqual(new Error('missing params: message'));
+        expect(httpResponse.body).toEqual(new MissingParamException('message'));
     });
 });
