@@ -1,6 +1,5 @@
 import { AddEmail } from "../../../domain/usecases/add-email-data";
 import { MissingParamException } from "../../exceptions/missing-param-exception";
-import { ServerErrorException } from "../../exceptions/server-error-exception";
 import { badRequest, ok, serverError } from "../../helpers";
 import { Controller } from "../../protocols/controller";
 import { HttpRequest, HttpResponse } from "../../protocols/http";
