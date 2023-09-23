@@ -15,8 +15,8 @@ export class EmailController implements Controller {
                     return badRequest(new MissingParamException(field));
                 }
             }
-            const emailData = this.addEmail.add(httpRequest.body);
-            return ok();
+            const emailData = await this.addEmail.add(httpRequest.body);
+            return ok(emailData);
         }catch{
             return serverError();
         };
