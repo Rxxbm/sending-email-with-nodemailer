@@ -1,10 +1,12 @@
+import { AddEmail } from "../../../domain/usecases/add-email-data";
 import { MissingParamException } from "../../exceptions/missing-param-exception";
 import { ServerErrorException } from "../../exceptions/server-error-exception";
-import { badRequest, serverError } from "../../helpers";
+import { badRequest, ok, serverError } from "../../helpers";
 import { Controller } from "../../protocols/controller";
 import { HttpRequest, HttpResponse } from "../../protocols/http";
 
 export class EmailController implements Controller {
+    constructor(private readonly addEmail: AddEmail) {}
     async handle(httpRequest: HttpRequest): Promise<HttpResponse>{
         try{
             const requireFields = ['email', 'telephone', 'name', 'company_name', 'message'];
@@ -13,10 +15,8 @@ export class EmailController implements Controller {
                     return badRequest(new MissingParamException(field));
                 }
             }
-            return {
-                body: httpRequest.body,
-                statusCode: 200
-            };
+            const emailData = this.addEmail.add(httpRequest.body);
+            return ok();
         }catch{
             return serverError();
         };
