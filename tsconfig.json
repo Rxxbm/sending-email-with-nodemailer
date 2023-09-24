@@ -4,7 +4,7 @@
         "target": "es5",
         "module": "commonjs",
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": "./srcc",
         "removeComments": false,
         "resolveJsonModule": true,
 
@@ -12,7 +12,7 @@
         "strictPropertyInitialization": false,
 
         "moduleResolution": "node",
-        "baseUrl": "./src",
+        "baseUrl": "./srcc",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
@@ -20,13 +20,13 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@root/*": ["./src/*"],
-            "@modules/*": ["./src/modules/*"],
-            "@libray/*": ["./src/libray/*"],
-            "@models/*": ["./src/models/*"],
-            "@routes/*": ["./src/routes/*"],
-            "@utils/*": ["./src/utils/*"],
-            "@decorators/*": ["./src/decorators/*"]
+            "@root/*": ["./srcc/*"],
+            "@modules/*": ["./srcc/modules/*"],
+            "@libray/*": ["./srcc/libray/*"],
+            "@models/*": ["./srcc/models/*"],
+            "@routes/*": ["./srcc/routes/*"],
+            "@utils/*": ["./srcc/utils/*"],
+            "@decorators/*": ["./srcc/decorators/*"]
         }
     },
     "exclude": [
@@ -36,7 +36,7 @@
         "types"
     ],
     "include": [
-        "src/**/*",
+        "srcc/**/*",
         "setEnvVars.ts"
     ]
 }

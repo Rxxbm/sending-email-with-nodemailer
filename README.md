@@ -1,16 +1,54 @@
-Esta é a estrutura inicial de um projeto, já com arquivos de configuração de lint e jest para garantia de melhor qualidade na execução dos códigos.
-
-clone o repositório antes de iniciar seu projeto e depois instale as dependências com
-
-```
-    npm i
-```
-Caso o pré-commit não esteja funcionando muito bem para você, tente ativar o husky com:
-```
-npx husky install
-```
-
-Caso você esteja você esteja na branch LintAndCommit e o husky está te atrapalhando utilize
-```
-npx husky uninstall
-```
+http://localhost:8080/api-docs/#/default/post_api_email
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Sending Email With Nodemailer",
+        "version": "1.0.0",
+        "description": "Documentation"
+    },
+    "paths": {
+        "/api/email": {
+            "post": {
+                "summary": "Send an email",
+                "description": "Sends an e-mail message to the address specified in the \".env\" file.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "company_name": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Data from the email sent."
+                    },
+                    "400": {
+                        "description": "error message."
+                    }
+                }
+            }
+        }
+    },
+    "components": {},
+    "tags": []
+}
