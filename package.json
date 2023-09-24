@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose --coverage",
+    "test": "jest --verbose --coverage --detectOpenHandles",
     "test:watch": "jest --verbose --coverage --watch",
     "build": "npm run lint && npm run test && tsc --build",
     "api_test": "npm run lint && npm run test -- -o && tsc --build",
