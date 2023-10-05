@@ -9,7 +9,8 @@ class EmailDataRepositoryStub implements EmailDataRepository {
             company_name: 'any_company',
             telephone: 'any_telephone',
             email: 'any_email',
-            message: 'any_message'
+            message: 'any_message',
+            service: 'any_service'
         };
     }
 }
@@ -25,7 +26,8 @@ describe('Email Service', () => {
                 company_name: 'any_company',
                 telephone: 'any_telephone',
                 email: 'any_email',
-                message: 'any_message'
+                message: 'any_message',
+                service: 'any_service'
             }
         };
         await sut.add(httpRequest.body);
@@ -34,7 +36,8 @@ describe('Email Service', () => {
             company_name: 'any_company',
             telephone: 'any_telephone',
             email: 'any_email',
-            message: 'any_message'
+            message: 'any_message',
+            service: 'any_service'
         });
     });
 });

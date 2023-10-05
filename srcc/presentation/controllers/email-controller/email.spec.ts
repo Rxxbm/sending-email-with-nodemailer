@@ -10,7 +10,8 @@ class AddEmailStub implements AddEmail {
             company_name: 'any_company',
             telephone: 'any_telephone',
             email: 'any_email',
-            message: 'any_message'
+            message: 'any_message',
+            service: 'any_service'
         };
     }
 }
@@ -32,7 +33,8 @@ describe('Email Controller', () => {
                 name: 'any_name',
                 company_name: 'any_company',
                 telephone: 'any_telephone',
-                message: 'any_message'
+                message: 'any_message',
+                service: 'any_service'
             }
         };
         const httpResponse = await sut.handle(httpRequest);
@@ -46,7 +48,8 @@ describe('Email Controller', () => {
                 email: 'any_email',
                 company_name: 'any_company',
                 telephone: 'any_telephone',
-                message: 'any_message'
+                message: 'any_message',
+                service: 'any_service'
             }
         };
         const httpResponse = await sut.handle(httpRequest);
@@ -60,7 +63,8 @@ describe('Email Controller', () => {
                 name: 'any_name',
                 company_name: 'any_company',
                 email: 'any_email',
-                message: 'any_message'
+                message: 'any_message',
+                service: 'any_service'
             }
         };
         const httpResponse = await sut.handle(httpRequest);
@@ -74,7 +78,8 @@ describe('Email Controller', () => {
                 name: 'any_name',
                 email: 'any_email',
                 telephone: 'any_telephone',
-                message: 'any_message'
+                message: 'any_message',
+                service: 'any_service'
             }
         };
         const httpResponse = await sut.handle(httpRequest);
@@ -88,12 +93,28 @@ describe('Email Controller', () => {
                 name: 'any_name',
                 company_name: 'any_company',
                 telephone: 'any_telephone',
-                email: 'any_email'
+                email: 'any_email',
+                service: 'any_service'
             }
         };
         const httpResponse = await sut.handle(httpRequest);
         expect(httpResponse.statusCode).toBe(400);
         expect(httpResponse.body).toEqual(new MissingParamException('message'));
+    });
+    test('Should return 400 if no service is provider', async () => {
+        const { sut } = makeSUT();
+        const httpRequest = {
+            body: {
+                name: 'any_name',
+                company_name: 'any_company',
+                telephone: 'any_telephone',
+                email: 'any_email',
+                message: 'any_message'
+            }
+        };
+        const httpResponse = await sut.handle(httpRequest);
+        expect(httpResponse.statusCode).toBe(400);
+        expect(httpResponse.body).toEqual(new MissingParamException('service'));
     });
     test('Should call add email with correct values', async () => {
         const { sut, addEmailStub } = makeSUT();
@@ -104,7 +125,8 @@ describe('Email Controller', () => {
                 company_name: 'any_company',
                 telephone: 'any_telephone',
                 email: 'any_email',
-                message: 'any_message'
+                message: 'any_message',
+                service: 'any_service'
             }
         };
         await sut.handle(httpRequest);
@@ -113,7 +135,47 @@ describe('Email Controller', () => {
             company_name: 'any_company',
             telephone: 'any_telephone',
             email: 'any_email',
-            message: 'any_message'
+            message: 'any_message',
+            service: 'any_service'
         });
+    });
+    test('Should return an account on success', async () => {
+        const { sut } = makeSUT();
+        const httpRequest = {
+            body: {
+                name: 'any_name',
+                company_name: 'any_company',
+                telephone: 'any_telephone',
+                email: 'any_email',
+                message: 'any_message',
+                service: 'any_service'
+            }
+        };
+        const httpResponse = await sut.handle(httpRequest);
+        expect(httpResponse.body).toEqual({ 
+            email: "any_email",
+            company_name: "any_company",
+            telephone: "any_telephone",
+            name: "any_name",
+            message: "any_message",
+            service: "any_service"
+        });
+        expect(httpResponse.statusCode).toBe(200);
+    });
+    test('Should throws if AddEmail throws', async () => {
+        const { sut, addEmailStub } = makeSUT();
+        jest.spyOn(addEmailStub, 'add').mockImplementationOnce(() => {throw new Error()});
+        const httpRequest = {
+            body: {
+                name: 'any_name',
+                company_name: 'any_company',
+                telephone: 'any_telephone',
+                email: 'any_email',
+                message: 'any_message',
+                service: 'any_service'
+            }
+        };
+        const httpResponse = await sut.handle(httpRequest);
+        expect(httpResponse.statusCode).toBe(500);
     });
 });

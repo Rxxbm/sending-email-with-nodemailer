@@ -10,7 +10,8 @@ describe('Express', () => {
        company_name: "any_company_name",
        telephone: "any_number",
        name: "any_name",
-       message: "any_message"
+       message: "any_message",
+       service: "any_service"
       });
 
     expect(response.statusCode).toBe(200);
