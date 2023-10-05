@@ -4,6 +4,7 @@ export type EmailDataModel = {
     telephone: string;
     email: string;
     message: string;
+    service: string;
 };
 
 export interface AddEmail {

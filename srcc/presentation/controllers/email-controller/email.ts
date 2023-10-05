@@ -8,7 +8,7 @@ export class EmailController implements Controller {
     constructor(private readonly addEmail: AddEmail) {}
     async handle(httpRequest: HttpRequest): Promise<HttpResponse>{
         try{
-            const requireFields = ['email', 'telephone', 'name', 'company_name', 'message'];
+            const requireFields = ['email', 'telephone', 'name', 'company_name', 'message', 'service'];
             for (const field of requireFields) {
                 if (!httpRequest.body[field]) {
                     return badRequest(new MissingParamException(field));
